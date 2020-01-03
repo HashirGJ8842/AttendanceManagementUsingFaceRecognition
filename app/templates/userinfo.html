@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+
+{% block userinfo %}
+
+<div class="container ">
+
+    <section>
+        <div class="container">
+            <div class="jumbotron-fluid">
+                <h1 class="display-4">
+                    <!--                     <img class="rounded-circle article-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16f560bd661%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16f560bd661%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.09375%22%20y%3D%22104.6546875%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">-->
+
+                    {{data.fullName()}}
+
+                </h1>
+                <p class="lead">
+                    {% if data.checkAttendance() %}
+                    <span class="badge badge-primary">PRESENT</span>
+                    {% else %}
+                    <span class="badge badge-danger">ABSENT</span>
+                    {% endif %}
+
+
+                    {% if not data.viewDayOff() %}
+                    {% else %}
+                <h5>Day OFF : {{ calendar.day_name[data.viewDayOff()] }}</h5>
+                {% endif %}
+
+                <!-- Change Day OFF -->
+
+                <div class="form-group">
+
+                    <label for="exampleFormControlSelect1">Change Rest Day</label>
+                    <select class="form-control col-2" id="exampleFormControlSelect1">
+                        <option disabled="true">Change Rest Day</option>
+                        <option value="0">Monday</option>
+                        <option value="1">Tuesday</option>
+                        <option value="2">Wednesday</option>
+                        <option value="3">Thursday</option>
+                        <option value="4">Friday</option>
+                        <option value="5">Saturday</option>
+                        <option value="6">Sunday</option>
+                    </select>
+                    <input class="btn" type="submit" value="submit">
+                </div>
+
+
+                </p>
+
+
+            </div>
+        </div>
+
+
+        <hr>
+        <h1>Attendance Record</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Location Name</th>
+                <th scope="col">Time</th>
+                <th scope="col">Verified</th>
+                <th scope="col">Method</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attendance in attendances %}
+            <tr>
+                <td><b><a href="../attendance/{{ attendance['date'] }}">{{ attendance['date'] }}</a></b></td>
+                <td><b>{{ attendance['location_name'] }}</b></td>
+
+                <td><b>{{ attendance['time'] }}</b></td>
+                <td><b>{{ attendance['verified'] }}</b></td>
+                <td><b>{{ attendance['method'] }}</b></td>
+
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+{% endblock %}
