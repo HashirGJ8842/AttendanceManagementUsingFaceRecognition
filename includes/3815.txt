@@ -1,0 +1,17 @@
+
+                        ###############
+                        Proctor Office
+                           DUTY SLIP
+                        ###############
+                        
+                        Name : John Doe
+                        
+                        Location : home
+                        
+                        LocationID : 211
+                        
+                        Time : 11:58:44
+    
+                    
+                        
+                    

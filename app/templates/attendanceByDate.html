@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block home %}
+<!--Add Form Here-->
+
+<section class="container">
+    <p class="lead">
+    <h1>ATTENDANCE BY DATE </h1>
+    <h5>Date: {{dateStr}}</h5>
+    <h4>Present: <span class="badge badge-pill badge-primary">{{ data.count() }}</span></h4>
+
+
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Time</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in data %}
+        <tr>
+            <th scope="row"><a href="/employee/{{record['emp_id']}}">{{record['emp_id']}}</a></th>
+            <td>{{record['first_name'] + ' ' + record['last_name'] }}</td>
+            {% for value in record['attendance'] %}
+            {% if value['date'] == dateStr %}
+
+            <td>{{value['location_name']}}</td>
+            <td>{{value['time']}}</td>
+
+
+            {% endif %}
+            {% endfor %}
+
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</section>
+
+
+{% endblock %}
