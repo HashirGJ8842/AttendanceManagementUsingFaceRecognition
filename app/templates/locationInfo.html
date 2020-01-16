@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block locationInfo %}
+
+<section class="container">
+    <div class="col-auto">
+         {% for value in data %}
+    <p class="lead border-left">
+    <h1>{{value['locationName']}}</h1>
+    </p>
+    <form action="" method="post">
+        <div class="form-group col-md-3">
+            <label for="exampleFormControlSelect1">Minimum Required</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="min">
+                <option selected="selected" value=" {{value['minimum']}}"> {{value['minimum']}} - Default</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+
+            <label for="exampleFormControlSelect1">Maximum Required</label>
+            <select class="form-control" id="exampleFormControlSelect2" name="max">
+                <option selected="selected" value=" {{value['minimum']}}"> {{value['maximum']}} - Default</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit" value="submit">Submit</button>
+    </form>
+    {% endfor %}
+    <hr>
+          <table class="table table-hover col-auto">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in dailyData %}
+        <tr>
+            <td><b><a href="../employee/{{ record['emp_id'] }}">{{ record['emp_id'] }}</a></b></td>
+            <td><b>{{ record['first_name'].upper() + ' ' + record['last_name'].upper() }}</b></td>
+
+            {% for value in record['attendance'] %}
+                {% if value['location'] == location_id %}
+                     <td><b>{{value['date']}}</b></td>
+                {% endif %}
+            {% endfor %}
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</section>
+
+
+{% endblock %}
+

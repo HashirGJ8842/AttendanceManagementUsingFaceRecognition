@@ -5,16 +5,16 @@ Created on Sat Oct  5 20:26:55 2019
 
 @author: abdulhannanmustajab
 """
-from datetime import timedelta, date, datetime
-from fpdf import FPDF
 import os
 import time
-import Location
-# import train_images as ft
+from datetime import timedelta, datetime
 
 # Connection
-import pymongo
 from pymongo import MongoClient
+
+import Location
+
+# import train_images as ft
 
 cluster = MongoClient(
     "mongodb+srv://mustajabhannan:Hannan786@cluster0-n7aqf.mongodb.net/test?retryWrites=true&w=majority")
