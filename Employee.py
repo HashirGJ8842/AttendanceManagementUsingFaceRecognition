@@ -376,39 +376,43 @@ class Employee:
             data = data[0]['attendance']
 
             for record in data:
-                if record['date'] == date:
-                    locationName = record['location_name']
-                    locationID = record['location']
-                    timeStamp = record['time']
-                    name = self.fullName()
+                try:
+                    if record['date'] == date:
+                        locationName = record['location_name']
+                        locationID = record['location']
+                        timeStamp = record['time']
+                        name = self.fullName()
 
-                    os.chdir("includes")
-                    txt_data = """
-                        ###############
-                        Proctor Office
-                           DUTY SLIP
-                        ###############
+                        os.chdir("includes")
+                        txt_data = """
+                            ###############
+                            Proctor Office
+                               DUTY SLIP
+                            ###############
+                            
+                            Name : {}
+                            
+                            Location : {}
+                            
+                            LocationID : {}
+                            
+                            Time : {}
+        
                         
-                        Name : {}
-                        
-                        Location : {}
-                        
-                        LocationID : {}
-                        
-                        Time : {}
-    
-                    
-                        
-                    """.format((name), (str(locationName)), (str(locationID)), (str(timeStamp)))
+                            
+                        """.format((name), (str(locationName)), (str(locationID)), (str(timeStamp)))
 
-                    f = open(str(self.emp_id) + ".txt", 'w')
-                    f.write(txt_data)
-                    f.close()
-                    path = (str(self.emp_id))
-                    # pdf.output(path + ".pdf")
-                    os.chdir("../")
+                        f = open(str(self.emp_id) + ".txt", 'w')
+                        f.write(txt_data)
+                        f.close()
+                        path = (str(self.emp_id))
+                        # pdf.output(path + ".pdf")
+                        os.chdir("../")
 
-                    return "Saving PDF As.." + str(path) + ".pdf"
+                        return "Saving PDF As.." + str(path) + ".pdf"
+
+                except:
+                    print("error")
 
 
         else:

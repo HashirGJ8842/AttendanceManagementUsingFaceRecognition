@@ -1,17 +1,17 @@
 
-                        ###############
-                        Proctor Office
-                           DUTY SLIP
-                        ###############
+                            ###############
+                            Proctor Office
+                               DUTY SLIP
+                            ###############
+                            
+                            Name : Hannan Mustajab
+                            
+                            Location : Marris Road
+                            
+                            LocationID : 3
+                            
+                            Time : 00:34:16
+        
                         
-                        Name : Hannan Mustajab
+                            
                         
-                        Location : DUCK POINT
-                        
-                        LocationID : 5646
-                        
-                        Time : 00:24:50
-    
-                    
-                        
-                    
