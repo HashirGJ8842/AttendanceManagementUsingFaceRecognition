@@ -14,8 +14,8 @@ class MarkingAttendance:
         self.thread.start()
 
     def MA_videoLoop(self):
-        #recognizer = cv2.face.LBPHFaceRecognizer_create()
-        #recognizer.read('trainer/trainer.yml')
+        recognizer = cv2.face.LBPHFaceRecognizer_create()
+        recognizer.read('trainer/trainer.yml')
         cascadePath = "haarcascade_frontalface_default.xml"
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + cascadePath)
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -24,63 +24,53 @@ class MarkingAttendance:
         minH = 0.1 * self.vs.get(4)
         confidence = 0
 
-
-
         while True:
 
-            ret ,self.frame = self.vs.read()
+            ret, self.frame = self.vs.read()
             gray = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
             image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
             image = Image.fromarray(image)
             image = ImageTk.PhotoImage(image)
             faces = faceCascade.detectMultiScale(
-            gray,
-            scaleFactor=1.2,
-            minNeighbors=5,
-            minSize=(int(minW), int(minH)),
+                gray,
+                scaleFactor=1.2,
+                minNeighbors=5,
+                minSize=(int(minW), int(minH)),
             )
             print(faces)
 
             for (x, y, w, h) in faces:
                 cv2.rectangle(self.frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-         #       id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
+                id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
 
-                #If confidence is less them 100 ==> "0" : perfect match
+                # If confidence is less them 100 ==> "0" : perfect match
                 if (confidence < 100):
                     confidence_percent = "  {0}%".format(round(100 - confidence))
                     confidence = round(100 - confidence)
+                    print(confidence)
+                    print(id)
                 else:
                     id = "unknown"
                     confidence_percent = "  {0}%".format(round(100 - confidence))
                     confidence = round(100 - confidence)
 
+                cv2.putText(
+                    self.frame,
+                    str(id),
+                    (x + 5, y - 5),
+                    font,
+                    1,
+                    (255, 255, 255),
+                    2
+                )
 
-                #cv2.putText(
-                #   self.frame,
-                #   str(id),
-                #   (x + 5, y - 5),
-                #   font,
-                #    1,
-                #    (255, 255, 255),
-                #    2
-                #)
-                #cv2.putText(
-                #    self.frame,
-                #    str(confidence),
-                #    str((x + 5, y + h - 5)),
-                #    font,
-                #    1,
-                #    str((255, 255, 0)),
-                #    1
-                # )
-
-            if confidence > 70:
-                #print("Match Found, Marking Attendance!")
+            if confidence > 65:
+                # print("Match Found, Marking Attendance!")
                 result = Employee.Employee(id).addAttendance(method="Face")
-                #print("Marking Attendance")
-                #print(result)
-                self.label1.config(text="Match Found, Marking Attendance!", bg="lightgreen")
-
+                name = Employee.Employee(id).fullName()
+                print(result)
+                self.label1.config(text=result+' '+name, bg="lightgreen")
+                break
 
             if self.panel is None:
                 self.panel = tki.Label(image=image)
@@ -92,7 +82,6 @@ class MarkingAttendance:
                 self.panel.configure(image=image)
                 self.panel.image = image
             cv2.waitKey(1)
-
 
     def onClose(self):
         print("[INFO] closing...")
@@ -106,10 +95,8 @@ class MarkingAttendance:
         self.thread = None
         self.stopEvent = None
 
-
         self.root = tki.Tk()
         self.panel = None
-
 
         self.vs.set(3, 480)
         self.vs.set(4, 480)
@@ -120,7 +107,7 @@ class MarkingAttendance:
                          pady=10)
         btn1 = tki.Button(self.root, text="Train")
         btn1.pack(side="bottom", fill="both", expand="yes", padx=10,
-                 pady=10)
+                  pady=10)
         btn2 = tki.Button(self.root, text="Mark Attendance", command=self.func)
         btn2.pack(side="bottom", fill="both", expand="yes", padx=10,
                   pady=10)
@@ -135,7 +122,6 @@ class MarkingAttendance:
 print("[INFO] warming up camera...")
 vs = cv2.VideoCapture(0)
 time.sleep(2.0)
-
 
 pba = MarkingAttendance(vs)
 pba.root.mainloop()

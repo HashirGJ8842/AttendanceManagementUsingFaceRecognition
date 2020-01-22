@@ -20,7 +20,7 @@ def captureImage(emp_id):
     i = 0
     checkDirectory(emp_id)
     camera = cv2.VideoCapture(0)
-    while i < 5:
+    while i < 30:
         raw_input('Press Enter to capture')
         return_value, image = camera.read()
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -53,6 +53,8 @@ def captureImage(emp_id):
     del(camera)
 
 
+
+captureImage(6102)
 
 
 

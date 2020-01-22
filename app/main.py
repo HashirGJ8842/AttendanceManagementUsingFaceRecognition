@@ -8,6 +8,7 @@ import Employee as emp
 from Employee import Employee, getAttendanceByDate, collection
 from flask_bcrypt import Bcrypt
 from Location import Location, getAll
+import Location
 import time
 
 app = Flask(__name__)
@@ -45,10 +46,46 @@ def viewAll():
 # Display employee Information here
 @app.route("/employee/<employee_id>", methods=['POST', 'GET'])
 def userInfo(employee_id):
+    if request.method=='POST':
+        req = request.form.get('offDay')
+        Employee(int(employee_id)).setOffDay(int(req))
+        penalty = request.form.get('penalty')
+        if penalty != "None":
+            Employee(int(employee_id)).addPenalty(int(penalty))
+            print(penalty)
     employee_id = int(employee_id)
     data = emp.Employee(employee_id)
+    penaltyList = list(collection.find({"emp_id":employee_id}))
     attendances = list(data.viewAttendance())[0]['attendance']
-    return render_template('userinfo.html', emp_id=employee_id, data=data, attendances=attendances, calendar=calendar)
+    return render_template('userinfo.html', emp_id=employee_id, data=data, attendances=attendances, calendar=calendar,penaltyList=penaltyList)
+
+
+# Display Location Information here
+@app.route("/location/<int:location_id>", methods=['POST', 'GET'])
+def locationInfo(location_id):
+    if request.method == 'POST':
+        min = int(request.form.get('min'))
+        max = int(request.form.get('max'))
+        Location.collection.update(
+            {"locationID":location_id},
+
+            {
+                "$set":
+                {
+                    "minimum":min,
+                    "maximum":max
+                }
+            }
+        )
+    location_id = int(location_id)
+    LocationData = Location.collection.find({"locationID":location_id}).sort('locationID')
+    dailyData  = list(collection.find({"attendance.location":location_id}))
+    return render_template('locationInfo.html', data=LocationData,dailyData=dailyData,location_id=location_id)
+
+
+
+
+
 
 
 # Login Page Route
@@ -100,3 +137,7 @@ def getEmployeeInformation():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+
+
+
+

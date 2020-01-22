@@ -24,7 +24,7 @@
         <tbody>
         {% for value in data %}
         <tr>
-            <th scope="row"><a href="/locations/{{ value['locationID'] }}">{{ value['locationID'] }}</a></th>
+            <th scope="row"><a href="/location/{{ value['locationID'] }}">{{ value['locationID'] }}</a></th>
             <td><b>{{value['locationName'].upper() }}</b></td>
             <td><b>{{value['maximum']}}</b></td>
             <td><b>{{value['minimum']}}</b></td>

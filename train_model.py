@@ -38,4 +38,3 @@ def TrainModel():
     # Print the numer of faces trained and end program
     print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids))))
 
-
