@@ -4,6 +4,8 @@
 Created on Sat Oct  5 20:26:55 2019
 
 @author: abdulhannanmustajab
+TODO : Add functionality to update the location slots after every shift
+       Check the GenenratePDF function.
 """
 import os
 import time
@@ -16,14 +18,11 @@ import Location
 
 # import train_images as ft
 
-cluster = MongoClient(
-    "mongodb+srv://mustajabhannan:Hannan786@cluster0-n7aqf.mongodb.net/test?retryWrites=true&w=majority")
+cluster = MongoClient("mongodb+srv://mustajabhannan:Hannan786@cluster0-n7aqf.mongodb.net/test?retryWrites=true&w=majority")
 
 db = cluster["attendance"]
 collection = db["users"]
-
 location_collection = db["locations"]
-
 
 class Employee:
     """Docstring of employee"""
@@ -368,6 +367,10 @@ class Employee:
             return False
 
     def generateAttendancePDF(self):
+        """
+        Generate a .txt file with the Attendance location, data and employee ID.
+        :return:
+        """
 
         ts = time.time()
         date = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
@@ -406,10 +409,9 @@ class Employee:
                         f.write(txt_data)
                         f.close()
                         path = (str(self.emp_id))
-                        # pdf.output(path + ".pdf")
                         os.chdir("../")
 
-                        return "Saving PDF As.." + str(path) + ".pdf"
+                        return "Saving file As.." + str(path) + ".txt"
 
                 except:
                     print("error")
