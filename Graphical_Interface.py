@@ -15,7 +15,7 @@ class MarkingAttendance:
 
     def MA_videoLoop(self):
         recognizer = cv2.face.LBPHFaceRecognizer_create()
-        recognizer.read('trainer/trainer.yml')
+        recognizer.read('recognition/trainer/trainer.yml')
         cascadePath = "haarcascade_frontalface_default.xml"
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + cascadePath)
         font = cv2.FONT_HERSHEY_SIMPLEX
