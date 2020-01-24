@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+
+{% block userinfo %}
+
+<div class="container ">
+
+    <section>
+        <div class="container">
+            <div class="jumbotron-fluid">
+                <h1 class="display-4">{{data.fullName()}}</h1>
+                <p class="lead">
+                    {% if data.checkAttendance() %}
+                    <span class="badge badge-primary">PRESENT</span>
+                    {% else %}
+                    <span class="badge badge-danger">ABSENT</span>
+                    {% endif %}
+
+
+                    {% if not data.viewDayOff() %}
+                    {% else %}
+                <h5>Day OFF : {{ calendar.day_name[data.viewDayOff()] }}</h5>
+                {% endif %}
+                {% for penalty in penaltyList %}
+                    {% for date in penalty['penalty'][0] %}
+                    <table>
+                         <th>Penalty :</th>
+                        <td>{{date}}</td>
+                    </table>
+
+                    {% endfor %}
+                {% endfor %}
+                <!-- Change Day OFF -->
+                <form action="" method="POST">
+                    <label>Change Rest Day</label>
+
+                    <div class="input-group">
+
+                        <select class="custom-select col-5" id="inputGroupSelect05" name='offDay'>
+                            <option disabled="true">Change Rest Day</option>
+                            <option value="0">Monday</option>
+                            <option value="1">Tuesday</option>
+                            <option value="2">Wednesday</option>
+                            <option value="3">Thursday</option>
+                            <option value="4">Friday</option>
+                            <option value="5">Saturday</option>
+                            <option value="6">Sunday</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                        </div>
+
+
+                         <div class="input-group">
+                    <select aria-label="Example select with button addon" class="custom-select col-2"
+                            id="inputGroupSelect04"
+                            name="penalty">
+                        <option selected value="None">PENALISE</option>
+                        {% for i in range(1,30) %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+
+        </div>
+
+</div>
+
+
+<hr>
+<h1>Attendance Record</h1>
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Location Name</th>
+        <th scope="col">Time</th>
+        <th scope="col">Verified</th>
+        <th scope="col">Method</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for attendance in attendances %}
+    <tr>
+        <td><b><a href="../attendance/{{ attendance['date'] }}">{{ attendance['date'] }}</a></b></td>
+        <td><b><a href="/location/{{ attendance['location'] }}">{{ attendance['location_name'] }}</a> </b></td>
+
+        <td><b>{{ attendance['time'] }}</b></td>
+        <td><b>{{ attendance['verified'] }}</b></td>
+        <td><b>{{ attendance['method'] }}</b></td>
+
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</section>
+</div>
+
+{% endblock %}

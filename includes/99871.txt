@@ -1,0 +1,17 @@
+
+                        ###############
+                        Proctor Office
+                           DUTY SLIP
+                        ###############
+                        
+                        Name : Ajaaj Jahs
+                        
+                        Location : Circle
+                        
+                        LocationID : 220
+                        
+                        Time : 20:01:10
+    
+                    
+                        
+                    

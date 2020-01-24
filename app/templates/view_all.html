@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+
+{% block view_all %}
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>WELCOME</h1>
+        <p class="lead">Manage Employees </p>
+    </div>
+</header>
+
+
+<div class="container">
+    <h1>View All {{title}} Here</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">offday</th>
+            <th scope="col">Today</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for value in data %}
+        <tr>
+            <th scope="row"><a href="/employee/{{ value['emp_id'] }}">{{ value['emp_id'] }}</a></th>
+            <td>{{value['first_name'] }}</td>
+            <td>{{ value['last_name']}}</td>
+            <td>{{ calendar.day_name[value['offDay']] }}</td>
+            {% if Employee(value['emp_id']).checkAttendance() %}
+            <td><span class="badge badge-primary">PRESENT</span></td>
+            {% else %}
+            <td><span class="badge badge-danger">ABSENT</span></td>
+            {% endif %}
+
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock view_all %}

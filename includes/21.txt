@@ -1,0 +1,17 @@
+
+                        ###############
+                        Proctor Office
+                           DUTY SLIP
+                        ###############
+                        
+                        Name : Hannan Mustajab
+                        
+                        Location : home
+                        
+                        LocationID : 211
+                        
+                        Time : 00:24:47
+    
+                    
+                        
+                    

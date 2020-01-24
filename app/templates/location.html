@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>WELCOME</h1>
+        <p class="lead">Manage Employees </p>
+    </div>
+</header>
+{% block locationblock %}
+<div class="container">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4"> Add New Location Here</legend>
+
+            <div class="form-group">
+                {{ form.name.label(class="form-control-label") }}
+
+
+                {% if form.name.errors %}
+                {{ form.name(class ="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.name.errors %}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.name(class="form-control form-control-lg") }}
+                {% endif %}
+
+            </div>
+
+            <div class="form-group">
+                {{ form.minimum_required.label(class="form-control-label") }}
+                {% if form.minimum_required.errors %}
+                {{ form.minimum_required(class ="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.minimum_required.errors %}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.minimum_required(class="form-control form-control-lg") }}
+                {% endif %}
+
+            </div>
+
+            <div class="form-group">
+                {{ form.maximum_required.label(class="form-control-label") }}
+                {% if form.maximum_required.errors %}
+                {{ form.maximum_required(class ="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.maximum_required.errors %}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.maximum_required(class="form-control form-control-lg") }}
+                {% endif %}
+
+            </div>
+
+
+
+            <div class="form-group">
+                {{ form.location_id.label(class="form-control-label") }}
+                {% if form.location_id.errors %}
+                {{ form.location_id(class ="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.location_id.errors %}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.location_id(class="form-control form-control-lg") }}
+                {% endif %}
+
+            </div>
+
+
+            <div class="form-group">
+                {{ form.submit(class = "btn btn-outline-info") }}
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}
