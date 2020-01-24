@@ -92,6 +92,14 @@ class Location:
         except Exception as e:
             print(e)
 
+    def resetAttendanceSlot(self):
+        locations = collection.find({})
+        for location in locations:
+            id = location['locationID']
+            minimum_slots = location['minimum']
+            collection.update({"locationID":id},{"$set":{"available_spots":minimum_slots}})
+
+
 
 def getAll():
     data = collection.find()
