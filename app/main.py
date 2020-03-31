@@ -8,7 +8,7 @@ import Employee as emp
 from Employee import Employee, getAttendanceByDate, collection
 from flask_bcrypt import Bcrypt
 from Location import Location, getAll
-import Location,pdfkit
+import Location
 import time
 
 app = Flask(__name__)

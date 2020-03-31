@@ -8,7 +8,6 @@ Created on Sat Oct  5 20:26:55 2019
 import os
 import time
 from datetime import timedelta, datetime
-import RFID
 
 # Connection
 from pymongo import MongoClient
@@ -420,20 +419,9 @@ class Employee:
             print("Length Zero")
             return "No Record Found"
 
-    def addRFID(self):
-        card_id = RFID.scanCard()
-        if len(list(collection.find({"RFID":card_id}).limit(1))) == 0 :
-            query = collection.update({"emp_id":self.emp_id},{"$set":{"RFID":card_id}})
-            return True
-        else:
-            return False
-
-
-
-
-
-
-
+    # def addFace(self):
+    #     result = ft.captureImage(self.emp_id)
+    #     return result
 
 
 def getAll():
