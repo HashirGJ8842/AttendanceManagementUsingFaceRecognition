@@ -15,7 +15,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.3
 MarkupSafe==1.1.1
 numpy==1.16.5
-opencv-contrib-python==4.1.2.30
+opencv-contrib-python==4.2.0.32
 opencv-python==4.1.2.30
 Pillow==6.2.1
 pycparser==2.19
